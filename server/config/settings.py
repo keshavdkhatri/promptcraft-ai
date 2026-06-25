@@ -14,3 +14,7 @@ FLASK_DEBUG = os.getenv("FLASK_DEBUG", "True").lower() == "true"
 
 # JSON storage path
 PROMPTS_FILE = BASE_DIR / "storage" / "prompts.json"
+
+# Gemini API settings
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
