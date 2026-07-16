@@ -1,19 +1,10 @@
+# pyrefly: ignore [missing-import]
 from flask import Blueprint, jsonify, request
 
+from utils.responses import success_response, error_response
 from services.gemini_service import optimize_prompt as run_optimization
 
 optimize_bp = Blueprint("optimize", __name__, url_prefix="/api/optimize")
-
-
-def success_response(data, status_code=200):
-    """Return a standardized success response."""
-    return jsonify({"success": True, "data": data}), status_code
-
-
-def error_response(message, status_code=400):
-    """Return a standardized error response."""
-    return jsonify({"success": False, "message": message}), status_code
-
 
 @optimize_bp.route("", methods=["POST"])
 def optimize():

@@ -1,22 +1,40 @@
+# ----------------------------
 # Python
+# ----------------------------
 __pycache__/
 *.py[cod]
 *.pyo
 *.pyd
 .Python
+.pytest_cache/
 
-# Virtual environments
+# ----------------------------
+# Virtual Environments
+# ----------------------------
 venv/
 .venv/
 env/
 
-# Environment variables
+# ----------------------------
+# Environment Variables
+# ----------------------------
 .env
 
+# ----------------------------
+# Frontend
+# ----------------------------
+node_modules/
+dist/
+build/
+
+# ----------------------------
 # IDE
+# ----------------------------
 .vscode/
 .idea/
 
-# OS
+# ----------------------------
+# OS Files
+# ----------------------------
 .DS_Store
 Thumbs.db

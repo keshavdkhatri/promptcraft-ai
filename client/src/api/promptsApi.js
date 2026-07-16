@@ -1,0 +1,77 @@
+const BASE_URL = 'http://127.0.0.1:5000/api';
+
+/**
+ * Optimize a prompt using Gemini via the Flask backend.
+ * @param {string} prompt - The original prompt text.
+ * @returns {Promise<string>} The optimized prompt text.
+ */
+export async function optimizePrompt(prompt) {
+  const response = await fetch(`${BASE_URL}/optimize`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ prompt }),
+  });
+
+  const data = await response.json();
+
+  if (!data.success) {
+    throw new Error(data.message || 'Failed to optimize prompt.');
+  }
+
+  return data.data.optimizedPrompt;
+}
+
+/**
+ * Save a new prompt to the library.
+ * @param {{ title: string, category: string, originalPrompt: string, optimizedPrompt: string }} payload
+ * @returns {Promise<object>} The saved prompt record.
+ */
+export async function savePrompt({ title, category, originalPrompt, optimizedPrompt }) {
+  const response = await fetch(`${BASE_URL}/prompts`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ title, category, originalPrompt, optimizedPrompt }),
+  });
+
+  const data = await response.json();
+
+  if (!data.success) {
+    throw new Error(data.message || 'Failed to save prompt.');
+  }
+
+  return data.data;
+}
+
+/**
+ * Fetch all saved prompts from the library.
+ * @returns {Promise<object[]>} Array of prompt records.
+ */
+export async function getAllPrompts() {
+  const response = await fetch(`${BASE_URL}/prompts`);
+  const data = await response.json();
+
+  if (!data.success) {
+    throw new Error(data.message || 'Failed to load prompts.');
+  }
+
+  return data.data;
+}
+
+/**
+ * Delete a prompt by ID.
+ * @param {string} id - The prompt UUID.
+ * @returns {Promise<object>} Confirmation with deleted ID.
+ */
+export async function deletePrompt(id) {
+  const response = await fetch(`${BASE_URL}/prompts/${id}`, {
+    method: 'DELETE',
+  });
+
+  const data = await response.json();
+
+  if (!data.success) {
+    throw new Error(data.message || 'Failed to delete prompt.');
+  }
+
+  return data.data;
+}

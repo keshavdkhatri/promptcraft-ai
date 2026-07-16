@@ -1,5 +1,7 @@
+# pyrefly: ignore [missing-import]
 from flask import Blueprint, jsonify, request
 
+from utils.responses import success_response, error_response
 from services.prompt_service import (
     create_prompt as save_prompt,
     delete_prompt as remove_prompt,
@@ -7,17 +9,6 @@ from services.prompt_service import (
 )
 
 prompt_bp = Blueprint("prompts", __name__, url_prefix="/api/prompts")
-
-
-def success_response(data, status_code=200):
-    """Return a standardized success response."""
-    return jsonify({"success": True, "data": data}), status_code
-
-
-def error_response(message, status_code=400):
-    """Return a standardized error response."""
-    return jsonify({"success": False, "message": message}), status_code
-
 
 @prompt_bp.route("", methods=["POST"])
 def create_prompt():

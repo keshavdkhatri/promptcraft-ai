@@ -51,7 +51,7 @@ def delete_prompt(prompt_id: str) -> Tuple[bool, Optional[str]]:
 
     data = read_json()
     prompts = data.get("prompts", [])
-    updated_prompts = [prompt for prompt in prompts if prompt.get("id") != prompt_id]
+    updated_prompts = [prompt for prompt in prompts if str(prompt.get("id")) != str(prompt_id)]
 
     if len(updated_prompts) == len(prompts):
         return False, "Prompt not found."
